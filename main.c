@@ -4,7 +4,7 @@ int main()
 {
     int fd = openSerialPort("/dev/ttyAMA1");
     printf("fd: %d\n", fd);
-    set_opt(fd, B115200, 8, 'N', 1);
+    set_opt(fd, 9600, 8, 'N', 1);
     char sendBuf[8] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88};
     char recvBuf[100] = {0};
     int sendBytes = 0, recvBytes = 0, i, total=0;

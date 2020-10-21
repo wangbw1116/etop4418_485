@@ -12,7 +12,9 @@
 
 int openSerialPort(char *port);
 int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop);
+int prepare_to_send(int fd);
 int sendData(int fd, char *data, int len);
+int prepare_to_recv(int fd);
 int recvData(int fd, char *data, int len);
 
 #endif // !__RS485_H__

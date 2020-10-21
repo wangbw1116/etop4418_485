@@ -105,16 +105,54 @@ int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop)
     return 0;
 }
 
+int prepare_to_send(int fd)
+{
+	int ret;
+
+	ret = ioctl(fd, 1, 0);
+	if(ret<0)
+	{
+		printf("rs485 set ctl to high failed!\r\n");
+		return -1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 int sendData(int fd, char *data, int len)
 {
     int ret = 0;
+    ret = prepare_to_send(fd);
+    if(ret < 0)
+        return ret;
     ret = write(fd, data, len);
     return ret;
+}
+
+int prepare_to_recv(int fd)
+{
+	int ret;
+
+	ret = ioctl(fd, 0, 0);
+	if(ret<0)
+	{
+		printf("rs485 set ctl to low failed!\r\n");
+		return -1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 int recvData(int fd, char *data, int len)
 {
     int ret = 0;
+    ret = prepare_to_recv(fd);
+    if(ret < 0)
+        return ret;
     ret = read(fd, data, len);
     return ret;
 }
